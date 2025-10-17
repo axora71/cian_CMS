@@ -166,6 +166,132 @@
                     <!-- Blacklisted client items will be dynamically inserted here -->
                 </div>
             </div>
+
+            <!-- Project Detail View -->
+            <div id="projectDetailView" class="content-section">
+                <button id="backToProjectsBtn" class="mb-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                    &larr; Back to Projects
+                </button>
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <h2 id="projectDetailName" class="text-3xl font-bold"></h2>
+                    <p id="projectDetailClient" class="text-lg text-gray-600 mb-4"></p>
+
+                    <!-- Tabs -->
+                    <div class="border-b border-gray-200">
+                        <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                            <a href="#" class="project-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" data-tab="overview">Overview</a>
+                            <a href="#" class="project-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" data-tab="versions">Versions</a>
+                            <a href="#" class="project-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" data-tab="payments">Payments</a>
+                            <a href="#" class="project-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" data-tab="comms">Communication Log</a>
+                        </nav>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="mt-6">
+                        <div id="tab-overview" class="project-tab-content">
+                            <h3 class="text-xl font-bold">Project Overview</h3>
+                            <p>Details about the project's status, cost, and description will go here.</p>
+                        </div>
+                        <div id="tab-versions" class="project-tab-content" style="display: none;">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-xl font-bold">Version Management</h3>
+                                <button id="addVersionBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add New Version</button>
+                            </div>
+                            <div id="versionList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <!-- Version cards will be dynamically inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Add/Edit Version Modal -->
+                        <div id="versionModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+                            <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900" id="versionModalTitle">Add New Version</h3>
+                                <form id="versionForm" class="mt-4">
+                                    <input class="mb-3 px-3 py-2 text-gray-700 border rounded-lg w-full" type="text" id="versionName" placeholder="Version Name (e.g., V1.0 - MVP)" required>
+                                    <textarea class="mb-3 px-3 py-2 text-gray-700 border rounded-lg w-full" id="versionDelivered" placeholder="What was delivered in this version?"></textarea>
+                                    <textarea class="mb-3 px-3 py-2 text-gray-700 border rounded-lg w-full" id="versionNotes" placeholder="Notes about this version..."></textarea>
+                                    <label class="block mb-2 text-sm font-medium text-gray-900" for="versionScreenshot">Screenshot</label>
+                                    <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer" id="versionScreenshot" type="file" accept="image/*" required>
+                                    <div class="items-center px-4 py-3 mt-4 text-right">
+                                        <button id="cancelVersionBtn" type="button" class="mr-2 px-4 py-2 bg-gray-300 text-gray-800 text-base font-medium rounded-md shadow-sm hover:bg-gray-400">Cancel</button>
+                                        <button id="saveVersionBtn" type="submit" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-blue-700">Save Version</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="tab-payments" class="project-tab-content" style="display: none;">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-xl font-bold">Payments</h3>
+                                <button id="addPaymentBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Schedule Payment</button>
+                            </div>
+                            <div id="paymentSummary" class="grid grid-cols-3 gap-4 mb-4 text-center">
+                                <!-- Payment summary will be dynamically inserted here -->
+                            </div>
+                            <div id="paymentList">
+                                <!-- Payment items will be dynamically inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Add/Edit Payment Modal -->
+                        <div id="paymentModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+                            <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Schedule a Payment</h3>
+                                <form id="paymentForm" class="mt-4">
+                                    <input class="mb-3 px-3 py-2 text-gray-700 border rounded-lg w-full" type="text" id="paymentName" placeholder="Payment Name (e.g., Deposit)" required>
+                                    <input class="mb-3 px-3 py-2 text-gray-700 border rounded-lg w-full" type="number" id="newPaymentAmount" placeholder="Amount" required>
+                                    <label for="paymentDueDate" class="block text-sm font-medium text-gray-700">Due Date</label>
+                                    <input class="mb-3 px-3 py-2 text-gray-700 border rounded-lg w-full" type="date" id="paymentDueDate" required>
+                                    <div class="items-center px-4 py-3 mt-4 text-right">
+                                        <button id="cancelPaymentBtn" type="button" class="mr-2 px-4 py-2 bg-gray-300 text-gray-800 text-base font-medium rounded-md shadow-sm hover:bg-gray-400">Cancel</button>
+                                        <button id="savePaymentBtn" type="submit" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-blue-700">Schedule</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Log Payment Modal -->
+                        <div id="logPaymentModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+                            <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Log Payment for <span id="logPaymentMilestoneName"></span></h3>
+                                <form id="logPaymentForm" class="mt-4">
+                                    <input type="hidden" id="logPaymentMilestoneId">
+                                    <label for="paymentAmount" class="block text-sm font-medium text-gray-700">Amount Paid</label>
+                                    <input class="mb-3 px-3 py-2 text-gray-700 border rounded-lg w-full" type="number" id="paymentAmount" required>
+                                    <label for="paymentDate" class="block text-sm font-medium text-gray-700">Payment Date</label>
+                                    <input class="mb-3 px-3 py-2 text-gray-700 border rounded-lg w-full" type="date" id="paymentDate" required>
+                                    <label for="paymentMethod" class="block text-sm font-medium text-gray-700">Payment Method</label>
+                                    <input class="mb-3 px-3 py-2 text-gray-700 border rounded-lg w-full" type="text" id="paymentMethod" placeholder="e.g., M-Pesa, Bank Transfer" required>
+                                    <div class="items-center px-4 py-3 mt-4 text-right">
+                                        <button id="cancelLogPaymentBtn" type="button" class="mr-2 px-4 py-2 bg-gray-300 text-gray-800 text-base font-medium rounded-md shadow-sm hover:bg-gray-400">Cancel</button>
+                                        <button id="saveLogPaymentBtn" type="submit" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-blue-700">Log Payment</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="tab-comms" class="project-tab-content" style="display: none;">
+                            <h3 class="text-xl font-bold mb-4">Communication Log</h3>
+                            <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                                <form id="commsForm">
+                                    <select id="commsType" class="w-full p-2 mb-2 border rounded">
+                                        <option>Feedback</option>
+                                        <option>Payment</option>
+                                        <option>Technical</option>
+                                        <option>Scope Change</option>
+                                        <option>Meeting</option>
+                                        <option>Email</option>
+                                        <option>Phone Call</option>
+                                    </select>
+                                    <textarea id="commsNotes" class="w-full p-2 border rounded" placeholder="Add notes..." required></textarea>
+                                    <button type="submit" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Log Entry</button>
+                                </form>
+                            </div>
+                            <div id="commsList">
+                                <!-- Communication log entries will be dynamically inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
@@ -236,21 +362,23 @@
             function saveClient(e) {
                 e.preventDefault();
                 const clientId = document.getElementById('clientId').value;
-                const clientData = {
-                    id: clientId || `client_${new Date().getTime()}`,
-                    name: document.getElementById('clientName').value,
-                    email: document.getElementById('clientEmail').value,
-                    phone: document.getElementById('clientPhone').value,
-                    communicationLog: [],
-                };
 
                 if (clientId) {
                     // Update existing client
-                    const index = APP_DATA.clients.findIndex(c => c.id === clientId);
-                    APP_DATA.clients[index] = { ...APP_DATA.clients[index], ...clientData };
+                    const client = APP_DATA.clients.find(c => c.id === clientId);
+                    client.name = document.getElementById('clientName').value;
+                    client.email = document.getElementById('clientEmail').value;
+                    client.phone = document.getElementById('clientPhone').value;
                 } else {
                     // Add new client
-                    APP_DATA.clients.push(clientData);
+                    const newClient = {
+                        id: `client_${new Date().getTime()}`,
+                        name: document.getElementById('clientName').value,
+                        email: document.getElementById('clientEmail').value,
+                        phone: document.getElementById('clientPhone').value,
+                        communicationLog: [],
+                    };
+                    APP_DATA.clients.push(newClient);
                 }
 
                 saveData();
@@ -299,7 +427,7 @@
                 const client = APP_DATA.clients.find(c => c.id === project.clientId);
                 if (!project || !client) return;
 
-                const totalPaid = project.payments.reduce((sum, p) => sum + p.amount, 0);
+                const totalPaid = (project.payments || []).reduce((sum, p) => sum + p.amount, 0);
                 const remaining = project.cost - totalPaid;
 
                 const invoiceHTML = `
@@ -403,14 +531,17 @@
 
                 APP_DATA.projects.forEach(project => {
                     const client = APP_DATA.clients.find(c => c.id === project.clientId);
-                    const totalPaid = project.payments.reduce((sum, p) => sum + p.amount, 0);
-                    const paymentProgress = (totalPaid / project.cost) * 100;
+                    const totalPaid = (project.payments || []).reduce((sum, p) => sum + p.amount, 0);
+                    const paymentProgress = project.cost > 0 ? (totalPaid / project.cost) * 100 : 0;
 
                     const projectCard = document.createElement('div');
-                    projectCard.className = 'bg-white shadow-md rounded-lg p-4 flex flex-col justify-between';
+                    projectCard.className = 'project-card bg-white shadow-md rounded-lg p-4 flex flex-col justify-between';
                     projectCard.innerHTML = `
                         <div>
-                            <h4 class="font-bold text-lg">${project.name}</h4>
+                            <div class="flex justify-between items-start">
+                                <h4 class="font-bold text-lg">${project.name}</h4>
+                                <p class="text-xs text-gray-500">Last Modified: ${new Date(project.lastModified).toLocaleDateString()}</p>
+                            </div>
                             <p class="text-sm text-gray-600 mb-2">Client: ${client ? client.name : 'N/A'}</p>
                             <p class="text-sm">${project.description}</p>
                             <div class="mt-4">
@@ -439,31 +570,39 @@
             function saveProject(e) {
                 e.preventDefault();
                 const projectId = document.getElementById('projectId').value;
-                const projectData = {
-                    id: projectId || `proj_${new Date().getTime()}`,
-                    clientId: document.getElementById('projectClient').value,
-                    name: document.getElementById('projectName').value,
-                    description: document.getElementById('projectDescription').value,
-                    cost: parseFloat(document.getElementById('projectCost').value),
-                    duration: parseInt(document.getElementById('projectDuration').value),
-                    status: document.getElementById('projectStatus').value,
-                    payments: [],
-                    expenses: [],
-                    versions: [],
-                };
 
                 if (projectId) {
-                    const index = APP_DATA.projects.findIndex(p => p.id === projectId);
-                    // Preserve existing nested data when updating
-                    projectData.payments = APP_DATA.projects[index].payments;
-                    projectData.expenses = APP_DATA.projects[index].expenses;
-                    projectData.versions = APP_DATA.projects[index].versions;
-                    APP_DATA.projects[index] = projectData;
+                    // Update existing project
+                    const project = APP_DATA.projects.find(p => p.id === projectId);
+                    project.clientId = document.getElementById('projectClient').value;
+                    project.name = document.getElementById('projectName').value;
+                    project.description = document.getElementById('projectDescription').value;
+                    project.cost = parseFloat(document.getElementById('projectCost').value);
+                    project.duration = parseInt(document.getElementById('projectDuration').value);
+                    project.status = document.getElementById('projectStatus').value;
+                    project.lastModified = new Date().toISOString();
                 } else {
-                    APP_DATA.projects.push(projectData);
+                    // Add new project
+                    const newProject = {
+                        id: `proj_${new Date().getTime()}`,
+                        clientId: document.getElementById('projectClient').value,
+                        name: document.getElementById('projectName').value,
+                        description: document.getElementById('projectDescription').value,
+                        cost: parseFloat(document.getElementById('projectCost').value),
+                        duration: parseInt(document.getElementById('projectDuration').value),
+                        status: document.getElementById('projectStatus').value,
+                        expenses: [],
+                        versions: [],
+                        communicationLog: [],
+                        paymentMilestones: [],
+                        payments: [],
+                        lastModified: new Date().toISOString(),
+                    };
+                    APP_DATA.projects.push(newProject);
                 }
 
                 // Auto-blacklist logic
+                const projectData = projectId ? APP_DATA.projects.find(p => p.id === projectId) : APP_DATA.projects[APP_DATA.projects.length - 1];
                 if (projectData.status === 'Canceled') {
                     const totalPaid = projectData.payments.reduce((sum, p) => sum + p.amount, 0);
                     if (totalPaid === 0) {
@@ -518,11 +657,357 @@
                         rerenderAll();
                     }
                 }
+
+                if (e.target.classList.contains('view-project-btn')) {
+                    showProjectDetail(id);
+                }
+            });
+
+            function showProjectDetail(projectId) {
+                currentProjectId = projectId;
+                const project = APP_DATA.projects.find(p => p.id === projectId);
+                const client = APP_DATA.clients.find(c => c.id === project.clientId);
+
+                // Hide main views, show detail view
+                document.querySelectorAll('#app > main > .content-section').forEach(el => el.style.display = 'none');
+                document.getElementById('projectDetailView').style.display = 'block';
+
+                // Populate header
+                document.getElementById('projectDetailName').textContent = project.name;
+                document.getElementById('projectDetailClient').textContent = `Client: ${client.name}`;
+
+                // Set default tab
+                switchProjectDetailTab('overview');
+
+                // Render all content for the detail view
+                // renderProjectOverview(project); // To be created
+                renderProjectVersions(project);
+                renderProjectPayments(project);
+                renderProjectComms(project);
+            }
+
+            function hideProjectDetail() {
+                currentProjectId = null;
+                document.getElementById('projectDetailView').style.display = 'none';
+                // Show the projects list again
+                navigateTo('projects');
+            }
+
+            document.getElementById('backToProjectsBtn').addEventListener('click', hideProjectDetail);
+
+            function switchProjectDetailTab(tabId) {
+                // Handle tab content visibility
+                document.querySelectorAll('.project-tab-content').forEach(content => {
+                    content.style.display = 'none';
+                });
+                document.getElementById(`tab-${tabId}`).style.display = 'block';
+
+                // Handle tab active styles
+                document.querySelectorAll('.project-tab').forEach(tab => {
+                    if (tab.dataset.tab === tabId) {
+                        tab.classList.add('border-blue-500', 'text-blue-600');
+                        tab.classList.remove('border-transparent', 'text-gray-500');
+                    } else {
+                        tab.classList.remove('border-blue-500', 'text-blue-600');
+                        tab.classList.add('border-transparent', 'text-gray-500');
+                    }
+                });
+            }
+
+            document.getElementById('projectDetailView').addEventListener('click', (e) => {
+                if (e.target.classList.contains('project-tab')) {
+                    e.preventDefault();
+                    switchProjectDetailTab(e.target.dataset.tab);
+                }
+            });
+
+            // --- PAYMENTS ---
+            const paymentModal = document.getElementById('paymentModal');
+            const logPaymentModal = document.getElementById('logPaymentModal');
+
+            function openPaymentModal() { paymentModal.classList.remove('hidden'); }
+            function closePaymentModal() { paymentModal.classList.add('hidden'); document.getElementById('paymentForm').reset(); }
+            function openLogPaymentModal(paymentId) {
+                const project = APP_DATA.projects.find(p => p.id === currentProjectId);
+                const payment = project.paymentMilestones.find(p => p.id === paymentId);
+                document.getElementById('logPaymentMilestoneId').value = paymentId;
+                document.getElementById('logPaymentMilestoneName').textContent = payment.name;
+                document.getElementById('paymentAmount').value = payment.amount;
+                document.getElementById('paymentDate').valueAsDate = new Date();
+                logPaymentModal.classList.remove('hidden');
+            }
+            function closeLogPaymentModal() { logPaymentModal.classList.add('hidden'); document.getElementById('logPaymentForm').reset(); }
+
+            document.getElementById('addPaymentBtn').addEventListener('click', openPaymentModal);
+            document.getElementById('cancelPaymentBtn').addEventListener('click', closePaymentModal);
+            document.getElementById('cancelLogPaymentBtn').addEventListener('click', closeLogPaymentModal);
+
+            function renderPaymentSummary(project) {
+                const summaryEl = document.getElementById('paymentSummary');
+                const totalPaid = (project.payments || []).reduce((sum, p) => sum + p.amount, 0);
+                const remaining = project.cost - totalPaid;
+                summaryEl.innerHTML = `
+                    <div class="p-2 bg-gray-100 rounded-lg">
+                        <h4 class="text-sm font-medium text-gray-500">Total Cost</h4>
+                        <p class="text-lg font-bold">${formatCurrency(project.cost)}</p>
+                    </div>
+                    <div class="p-2 bg-green-100 rounded-lg">
+                        <h4 class="text-sm font-medium text-green-700">Total Paid</h4>
+                        <p class="text-lg font-bold text-green-800">${formatCurrency(totalPaid)}</p>
+                    </div>
+                    <div class="p-2 bg-red-100 rounded-lg">
+                        <h4 class="text-sm font-medium text-red-700">Balance Due</h4>
+                        <p class="text-lg font-bold text-red-800">${formatCurrency(remaining)}</p>
+                    </div>
+                `;
+            }
+
+            function renderProjectPayments(project) {
+                const paymentList = document.getElementById('paymentList');
+                paymentList.innerHTML = '';
+                renderPaymentSummary(project);
+
+                if (!project.paymentMilestones || project.paymentMilestones.length === 0) {
+                    paymentList.innerHTML = '<p class="text-gray-500">No payments scheduled for this project.</p>';
+                    return;
+                }
+
+                project.paymentMilestones.forEach(p => {
+                    let statusClass = '', statusText = p.status;
+                    if (p.status === 'Pending') {
+                        statusClass = new Date(p.dueDate) < new Date() ? 'text-orange-500' : 'text-gray-500';
+                        if (new Date(p.dueDate) < new Date()) statusText = 'Overdue';
+                    } else if (p.status === 'Paid') {
+                        statusClass = 'text-green-500';
+                    }
+
+                    const paymentEl = document.createElement('div');
+                    paymentEl.className = 'border rounded-lg p-4 mb-2 flex justify-between items-center';
+                    paymentEl.innerHTML = `
+                        <div>
+                            <p class="font-bold">${p.name}</p>
+                            <p class="text-sm text-gray-600">Due: ${new Date(p.dueDate).toLocaleDateString()}</p>
+                            <p class="text-lg font-semibold ${statusClass}">${formatCurrency(p.amount)} - ${statusText}</p>
+                            ${p.paymentDetails ? `<p class="text-xs text-gray-500">Paid on ${new Date(p.paymentDetails.date).toLocaleDateString()} via ${p.paymentDetails.method}</p>` : ''}
+                        </div>
+                        <div>
+                            ${p.status === 'Pending' ? `<button class="log-payment-btn bg-blue-500 text-white py-1 px-3 rounded" data-id="${p.id}">Record Payment</button>` : ''}
+                            ${p.status === 'Paid' ? `<button class="print-receipt-btn bg-gray-200 text-gray-700 py-1 px-3 rounded" data-id="${p.id}">Print Receipt</button>` : ''}
+                        </div>
+                    `;
+                    paymentList.appendChild(paymentEl);
+                });
+            }
+
+            document.getElementById('paymentForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const project = APP_DATA.projects.find(p => p.id === currentProjectId);
+                if (project) {
+                    const newPayment = {
+                        id: `pay_${new Date().getTime()}`,
+                        name: document.getElementById('paymentName').value,
+                        amount: parseFloat(document.getElementById('newPaymentAmount').value),
+                        dueDate: document.getElementById('paymentDueDate').value,
+                        status: 'Pending', // 'Pending', 'Paid'
+                    };
+                    project.paymentMilestones.push(newPayment);
+                    project.lastModified = new Date().toISOString();
+                    saveData();
+                    renderProjectPayments(project);
+                    closePaymentModal();
+                }
+            });
+
+            document.getElementById('logPaymentForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const project = APP_DATA.projects.find(p => p.id === currentProjectId);
+                const paymentId = document.getElementById('logPaymentMilestoneId').value;
+                const milestone = project.paymentMilestones.find(m => m.id === paymentId);
+
+                if (project && milestone) {
+                    milestone.status = 'Paid';
+                    milestone.paymentDetails = {
+                        amount: parseFloat(document.getElementById('paymentAmount').value),
+                        date: document.getElementById('paymentDate').value,
+                        method: document.getElementById('paymentMethod').value,
+                    };
+
+                    if(!project.payments) project.payments = [];
+                    project.payments.push(milestone.paymentDetails);
+                    project.lastModified = new Date().toISOString();
+
+                    saveData();
+                    renderProjectPayments(project);
+                    rerenderAll();
+                    closeLogPaymentModal();
+                }
+            });
+
+            document.getElementById('paymentList').addEventListener('click', e => {
+                const paymentId = e.target.dataset.id;
+                if (e.target.classList.contains('log-payment-btn')) {
+                    openLogPaymentModal(paymentId);
+                }
+                if (e.target.classList.contains('print-receipt-btn')) {
+                    generateReceipt(paymentId);
+                }
+            });
+
+            function generateReceipt(paymentId) {
+                // This will be a simplified version of the invoice for a single payment
+                const project = APP_DATA.projects.find(p => p.id === currentProjectId);
+                const payment = project.paymentMilestones.find(p => p.id === paymentId);
+                const client = APP_DATA.clients.find(c => c.id === project.clientId);
+                if (!project || !payment || !client) return;
+
+                const receiptHTML = `
+                    <html>
+                    <head><title>Payment Receipt</title><script src="https://cdn.tailwindcss.com"><\/script></head>
+                    <body class="p-8"><div class="max-w-2xl mx-auto">
+                        <h1 class="text-2xl font-bold mb-4">Payment Receipt</h1>
+                        <p><strong>Client:</strong> ${client.name}</p>
+                        <p><strong>Project:</strong> ${project.name}</p>
+                        <hr class="my-4">
+                        <p><strong>Payment For:</strong> ${payment.name}</p>
+                        <p><strong>Amount:</strong> ${formatCurrency(payment.paymentDetails.amount)}</p>
+                        <p><strong>Date:</strong> ${new Date(payment.paymentDetails.date).toLocaleDateString()}</p>
+                        <p><strong>Method:</strong> ${payment.paymentDetails.method}</p>
+                    </div></body></html>`;
+                const receiptWindow = window.open('', '_blank');
+                receiptWindow.document.write(receiptHTML);
+                receiptWindow.document.close();
+            }
+
+            // --- VERSION MANAGEMENT ---
+            const versionModal = document.getElementById('versionModal');
+            const addVersionBtn = document.getElementById('addVersionBtn');
+            const cancelVersionBtn = document.getElementById('cancelVersionBtn');
+            const versionForm = document.getElementById('versionForm');
+
+            function openVersionModal() {
+                versionModal.classList.remove('hidden');
+            }
+
+            function closeVersionModal() {
+                versionModal.classList.add('hidden');
+                versionForm.reset();
+            }
+
+            function renderProjectVersions(project) {
+                const versionList = document.getElementById('versionList');
+                versionList.innerHTML = '';
+                if (!project.versions || project.versions.length === 0) {
+                    versionList.innerHTML = '<p class="text-gray-500 md:col-span-3">No versions created for this project.</p>';
+                    return;
+                }
+
+                const sortedVersions = [...(project.versions || [])].sort((a, b) => new Date(b.date) - new Date(a.date));
+                sortedVersions.forEach(version => {
+                    const versionCard = document.createElement('div');
+                    versionCard.className = 'bg-white shadow-md rounded-lg p-4 border';
+                    versionCard.innerHTML = `
+                        <img src="${version.screenshot}" alt="Version Screenshot" class="rounded-t-lg w-full h-40 object-cover mb-2">
+                        <h5 class="font-bold">${version.name}</h5>
+                        <p class="text-xs text-gray-500 mb-2">${new Date(version.date).toLocaleDateString()}</p>
+                        <p class="text-sm text-gray-600 mb-2"><strong>Delivered:</strong> ${version.delivered || 'N/A'}</p>
+                        <p class="text-sm text-gray-600 mb-3">${version.notes}</p>
+                        ${version.approved
+                            ? '<p class="text-green-600 font-bold">Approved</p>'
+                            : `<button class="approve-version-btn bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-1 px-2 rounded" data-id="${version.id}">Approve</button>`
+                        }
+                    `;
+                    versionList.appendChild(versionCard);
+                });
+            }
+
+            addVersionBtn.addEventListener('click', openVersionModal);
+            cancelVersionBtn.addEventListener('click', closeVersionModal);
+
+            versionForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const project = APP_DATA.projects.find(p => p.id === currentProjectId);
+                const screenshotFile = document.getElementById('versionScreenshot').files[0];
+                if (project && screenshotFile) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        const newVersion = {
+                            id: `ver_${new Date().getTime()}`,
+                            name: document.getElementById('versionName').value,
+                            delivered: document.getElementById('versionDelivered').value,
+                            notes: document.getElementById('versionNotes').value,
+                            date: new Date().toISOString(),
+                            screenshot: event.target.result, // Base64 Data URL
+                            approved: false,
+                        };
+                        project.versions.push(newVersion);
+                        project.lastModified = new Date().toISOString();
+                        saveData();
+                        renderProjectVersions(project);
+                        closeVersionModal();
+                    };
+                    reader.readAsDataURL(screenshotFile);
+                }
+            });
+
+            document.getElementById('versionList').addEventListener('click', (e) => {
+                if (e.target.classList.contains('approve-version-btn')) {
+                    const versionId = e.target.dataset.id;
+                    const project = APP_DATA.projects.find(p => p.id === currentProjectId);
+                    const version = project.versions.find(v => v.id === versionId);
+                    if (version) {
+                        version.approved = true;
+                        saveData();
+                        renderProjectVersions(project);
+                    }
+                }
+            });
+
+            function renderProjectComms(project) {
+                const commsList = document.getElementById('commsList');
+                commsList.innerHTML = '';
+                if (!project.communicationLog || project.communicationLog.length === 0) {
+                    commsList.innerHTML = '<p class="text-gray-500">No communication logged for this project.</p>';
+                    return;
+                }
+                // Sort logs by date, newest first
+                [...project.communicationLog].sort((a, b) => new Date(b.date) - new Date(a.date)).forEach(log => {
+                    const logEl = document.createElement('div');
+                    logEl.className = 'border-b p-3';
+                    logEl.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-sm">${log.type}</span>
+                            <span class="text-xs text-gray-500">${new Date(log.date).toLocaleString()}</span>
+                        </div>
+                        <p class="text-gray-700 mt-1">${log.notes}</p>
+                    `;
+                    commsList.appendChild(logEl);
+                });
+            }
+
+            document.getElementById('commsForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const project = APP_DATA.projects.find(p => p.id === currentProjectId);
+                if (project) {
+                    const newLog = {
+                        id: `comm_${new Date().getTime()}`,
+                        date: new Date().toISOString(),
+                        type: document.getElementById('commsType').value,
+                        notes: document.getElementById('commsNotes').value,
+                    };
+                    if (!project.communicationLog) {
+                        project.communicationLog = [];
+                    }
+                    project.communicationLog.push(newLog);
+                    saveData();
+                    renderProjectComms(project);
+                    e.target.reset();
+                }
             });
 
             // --- DASHBOARD & FINANCIALS ---
             let monthlyRevenueChartInstance;
             let projectStatusChartInstance;
+            let currentProjectId = null;
 
             function formatCurrency(amount) {
                 return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
@@ -545,7 +1030,7 @@
 
                 // Monthly Revenue Chart
                 const revenueData = {};
-                APP_DATA.projects.flatMap(p => p.payments).forEach(payment => {
+                APP_DATA.projects.flatMap(p => p.payments || []).forEach(payment => {
                     const month = new Date(payment.date).toLocaleString('default', { month: 'short', year: '2-digit' });
                     revenueData[month] = (revenueData[month] || 0) + payment.amount;
                 });
@@ -579,7 +1064,7 @@
                 tableBody.innerHTML = '';
                 APP_DATA.projects.forEach(project => {
                     const client = APP_DATA.clients.find(c => c.id === project.clientId);
-                    const totalPaid = project.payments.reduce((sum, p) => sum + p.amount, 0);
+                    const totalPaid = (project.payments || []).reduce((sum, p) => sum + p.amount, 0);
                     const remaining = project.cost - totalPaid;
                     const row = tableBody.insertRow();
                     row.innerHTML = `
@@ -588,10 +1073,31 @@
                         <td class="px-6 py-4 whitespace-nowrap">${formatCurrency(project.cost)}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-green-600">${formatCurrency(totalPaid)}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-red-600">${formatCurrency(remaining)}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">${project.status}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <select class="status-dropdown border rounded p-1" data-id="${project.id}">
+                                <option ${project.status === 'In-Progress' ? 'selected' : ''}>In-Progress</option>
+                                <option ${project.status === 'On-Hold' ? 'selected' : ''}>On-Hold</option>
+                                <option ${project.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                                <option ${project.status === 'Canceled' ? 'selected' : ''}>Canceled</option>
+                            </select>
+                        </td>
                     `;
                 });
             }
+
+            document.getElementById('financialsTableBody').addEventListener('change', (e) => {
+                if (e.target.classList.contains('status-dropdown')) {
+                    const projectId = e.target.dataset.id;
+                    const newStatus = e.target.value;
+                    const project = APP_DATA.projects.find(p => p.id === projectId);
+                    if (project) {
+                        project.status = newStatus;
+                        project.lastModified = new Date().toISOString();
+                        saveData();
+                        rerenderAll(); // To update dashboard and project list
+                    }
+                }
+            });
 
             // --- BLACKLIST ---
             const blacklistList = document.getElementById('blacklistList');
@@ -641,9 +1147,14 @@
             const contentSections = document.querySelectorAll('.content-section');
 
             function navigateTo(targetId) {
+                // Hide project detail view if it's open and clear the current project ID
+                document.getElementById('projectDetailView').style.display = 'none';
+                currentProjectId = null;
+
                 // Hide all content sections
                 contentSections.forEach(section => {
                     section.classList.remove('active');
+                    section.style.display = ''; // Reset style overrides
                 });
 
                 // Show the target section
